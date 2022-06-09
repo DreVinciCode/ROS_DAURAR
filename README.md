@@ -3,6 +3,18 @@
 
 ## Installation 
 
+```
+cd ~/catkin_ws/src
+git clone https://github.com/DreVinciCode/DAURAR.git
+https://github.com/DreVinciCode/universal_robot.git
+git clone https://github.com/DreVinciCode/Universal_Robots_ROS_Driver.git
+
+
+cd ..
+rosdep install --from-paths src --ignore-src -r -y
+
+```
+
 ## Requirements
 1. Ubuntu 18.04
 2. ROS Melodic
