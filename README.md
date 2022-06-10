@@ -6,8 +6,9 @@
 ```
 cd ~/catkin_ws/src
 git clone https://github.com/DreVinciCode/DAURAR.git
-https://github.com/DreVinciCode/universal_robot.git
+git clone https://github.com/DreVinciCode/universal_robot.git
 git clone https://github.com/DreVinciCode/Universal_Robots_ROS_Driver.git
+git clone https://github.com/DreVinciCode/robotiq_85_gripper.git 
 
 
 cd ..
