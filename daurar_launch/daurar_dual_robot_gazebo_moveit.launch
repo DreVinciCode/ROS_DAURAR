@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="gui" default="true"/>
+  <arg name="sim" default="true" />
+  <arg name="debug" default="false"/>
+  <arg name="use_gui" default="false" />
+
+  <!-- Gazebo specific options -->
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="paused" default="false"/>
+  <!-- By default, use the urdf location provided from the package -->
+  <arg name="urdf_path" default="$(find daurar_description)/urdf/dual_arm_setup.urdf"/>
+
+  <!-- launch the gazebo simulator and spawn the robot -->
+  <include file="$(find daurar_dual_arm_moveit_config)/launch/gazebo.launch" >
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
+    <arg name="urdf_path" value="$(arg urdf_path)"/>
+  </include>
+
+  <!-- Robot state publisher -->
+  <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  <!-- <include file="$(find robotiq_85_gazebo)/launch/controller_utils.launch"/> -->
+
+  <!-- start left arm controller -->
+  <rosparam file="$(find ur_gazebo)/controller/dual_arm_controller_ur5.yaml" command="load"/>
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
+
+
+  <!-- start robotiq 85 controller -->
+  <rosparam file="$(find robotiq_85_gazebo)/controller/gripper_controller_robotiq.yaml" command="load"/>
+  <node name="gripper_controller_spawner" pkg="controller_manager" type="spawner" args="gripper --shutdown-timeout 0.5" />
+
+  <!-- load other controllers -->
+  <node name="ros_control_controller_manager" pkg="controller_manager" type="controller_manager" respawn="false" output="screen" args="load joint_group_position_controller" />
+
+  <!-- Run the main MoveIt executable -->
+  <include file="$(find daurar_dual_arm_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find daurar_dual_arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find daurar_dual_arm_moveit_config)/launch/moveit.rviz"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+</launch>
