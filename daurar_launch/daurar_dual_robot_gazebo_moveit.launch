@@ -20,12 +20,10 @@
 
   <!-- Robot state publisher -->
   <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
-  <!-- <include file="$(find robotiq_85_gazebo)/launch/controller_utils.launch"/> -->
 
   <!-- start left arm controller -->
   <rosparam file="$(find ur_gazebo)/controller/dual_arm_controller_ur5.yaml" command="load"/>
-  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn arm_controller" respawn="false" output="screen"/>
-
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn ur5_arm_right ur5_arm_left right_gripper left_gripper" respawn="false" output="screen"/>
 
   <!-- start robotiq 85 controller -->
   <rosparam file="$(find robotiq_85_gazebo)/controller/gripper_controller_robotiq.yaml" command="load"/>
