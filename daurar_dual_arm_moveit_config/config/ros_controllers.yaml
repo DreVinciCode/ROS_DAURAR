@@ -40,12 +40,45 @@ controller_list:
       - left_wrist_1_joint
       - left_wrist_2_joint
       - left_wrist_3_joint
+    gains:
+      left_shoulder_pan_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_shoulder_lift_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_elbow_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_wrist_1_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_wrist_2_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      left_wrist_3_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+
   - name: "left_gripper"
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
     default: true
     joints:
       - left_gripper_finger1_joint
+
   - name: ur5_arm_right
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
@@ -56,6 +89,37 @@ controller_list:
       - right_wrist_1_joint
       - right_wrist_2_joint
       - right_wrist_3_joint
+    gains:
+      right_shoulder_pan_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_shoulder_lift_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_elbow_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_wrist_1_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_wrist_2_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
+      right_wrist_3_joint:
+        p: 100
+        d: 1
+        i: 1
+        i_clamp: 1
   - name: "right_gripper"
     action_ns: follow_joint_trajectory
     type: FollowJointTrajectory
