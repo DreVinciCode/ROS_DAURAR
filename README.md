@@ -3,6 +3,11 @@
 
 ![Alt text](demos/daurar.png)
 
+## Requirements
+1. Ubuntu 18.04
+2. ROS Melodic
+3. Gazebo
+
 ## Installation 
 
 ```
@@ -17,7 +22,8 @@ rosdep install --from-paths src --ignore-src -r -y
 
 ```
 
-## Requirements
-1. Ubuntu 18.04
-2. ROS Melodic
-3. Gazebo
+## How to Run
+
+```
+roslaunch daurar_launch daurar_dual_robot_gazebo_moveit.launch
+```
