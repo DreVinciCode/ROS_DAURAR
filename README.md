@@ -7,6 +7,7 @@
 1. Ubuntu 18.04
 2. ROS Melodic
 3. Gazebo
+4. Ros Bridge
 
 ## Installation 
 
@@ -21,6 +22,12 @@ cd ..
 rosdep install --from-paths src --ignore-src -r -y
 
 ```
+
+## Other Items to Install
+```
+sudo apt-get install ros-melodic-rosbridge-server
+```
+
 
 ## How to Run
 
