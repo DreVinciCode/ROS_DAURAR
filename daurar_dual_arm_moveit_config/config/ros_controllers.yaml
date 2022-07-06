@@ -1,7 +1,7 @@
 # Simulation settings for using moveit_sim_controllers
 moveit_sim_hw_interface:
-  joint_model_group: todo_group_name
-  joint_model_group_pose: todo_state_name
+  joint_model_group: left_arm_manipulator
+  joint_model_group_pose: left_home
 # Settings for ros_control_boilerplate control loop
 generic_hw_control_loop:
   loop_hz: 300
@@ -32,6 +32,7 @@ joint_state_controller:
 controller_list:
   - name: ur5_arm_left
     action_ns: follow_joint_trajectory
+    default: True
     type: FollowJointTrajectory
     joints:
       - left_shoulder_pan_joint
@@ -40,47 +41,15 @@ controller_list:
       - left_wrist_1_joint
       - left_wrist_2_joint
       - left_wrist_3_joint
-    gains:
-      left_shoulder_pan_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      left_shoulder_lift_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      left_elbow_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      left_wrist_1_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      left_wrist_2_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      left_wrist_3_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-
-  - name: "left_gripper"
+  - name: left_gripper
     action_ns: follow_joint_trajectory
+    default: True
     type: FollowJointTrajectory
-    default: true
     joints:
-      - left_gripper_finger1_joint
-
+      left_gripper_finger1_joint
   - name: ur5_arm_right
     action_ns: follow_joint_trajectory
+    default: True
     type: FollowJointTrajectory
     joints:
       - right_shoulder_pan_joint
@@ -89,40 +58,9 @@ controller_list:
       - right_wrist_1_joint
       - right_wrist_2_joint
       - right_wrist_3_joint
-    gains:
-      right_shoulder_pan_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      right_shoulder_lift_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      right_elbow_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      right_wrist_1_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      right_wrist_2_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-      right_wrist_3_joint:
-        p: 100
-        d: 1
-        i: 1
-        i_clamp: 1
-  - name: "right_gripper"
+  - name: right_gripper
     action_ns: follow_joint_trajectory
+    default: True
     type: FollowJointTrajectory
-    default: true
     joints:
-      - right_gripper_finger1_joint
+      right_gripper_finger1_joint

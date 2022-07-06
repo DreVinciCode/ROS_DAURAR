@@ -145,6 +145,8 @@ left_arm_manipulator:
     - LazyPRMstar
     - SPARS
     - SPARStwo
+  projection_evaluator: joints(left_shoulder_pan_joint,left_shoulder_lift_joint)
+  longest_valid_segment_fraction: 0.005
 right_arm_manipulator:
   planner_configs:
     - SBL
@@ -170,6 +172,8 @@ right_arm_manipulator:
     - LazyPRMstar
     - SPARS
     - SPARStwo
+  projection_evaluator: joints(right_shoulder_pan_joint,right_shoulder_lift_joint)
+  longest_valid_segment_fraction: 0.005
 left_gripper:
   planner_configs:
     - SBL
