@@ -26,7 +26,7 @@ controller_list:
     joints:
       - right_gripper_finger1_joint
 initial:  # Define initial robot poses.
-#  - group: left_arm_manipulator
-#    pose: home
-
-  []
+  - group: left_arm_manipulator
+    pose: left_home
+  - group: right_arm_manipulator
+    pose: right_home
