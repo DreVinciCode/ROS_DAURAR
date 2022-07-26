@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<launch>
+  <!--
+  Usage:
+  roslaunch bimur_bringup bimur_right_robot_real_moveit.launch robot_ip:=172.22.22.2 kinematics_config:="$(rospack find bimur_ur_launch)/etc/bimur_right_arm_calibration.yaml" gripper_test:=true
+  -->
+
+  <arg name="real_robot" default="true"/>
+  <arg name="gripper_test" default="false"/>
+  <arg name="debug" default="false"/>
+  <arg name="robot_ip"/>
+  <arg name="kinematics_config" default="$(find daurar_ur_launch)/etc/daurar_right_arm_calibration.yaml"/>
+  <arg name="robot_description_file" default="$(find daurar_description)/launch/daurar_right_robot_upload.launch"/>
+
+  <!-- ur5 driver -->
+  <!-- Load robot URDF -->
+  <include file="$(find ur_robot_driver)/launch/ur5_bringup.launch">
+    <arg name="robot_ip" value="$(arg robot_ip)"/>
+    <arg name="kinematics_config" value="$(arg kinematics_config)"/>
+    <arg name="robot_description_file" value="$(arg robot_description_file)"/>
+  </include>
+
+  <!--gripper driver -->
+<!--   <include file="$(find bimur_bringup)/launch/robotiq_85.launch">
+    <arg name="gripper_test" value="$(arg gripper_test)"/>
+    <arg name="comport" value="/dev/ttyUSB0"/>
+  </include> -->
+
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+      <rosparam param="source_list">[/joint_states]</rosparam>
+  </node>
+
+  <!-- Run the main MoveIt executable -->
+  <include file="$(find daurar_right_arm_moveit_config)/launch/move_group.launch">
+    <arg name="real_robot" value="$(arg real_robot)"/>
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find daurar_right_arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+</launch>
