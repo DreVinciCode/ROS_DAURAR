@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="gui" default="true"/>
+  <arg name="sim" default="true" />
+  <arg name="debug" default="false"/>
+  <arg name="use_gui" default="false" />
+
+  <!-- Gazebo specific options -->
+  <arg name="gazebo_gui" default="true"/>
+  <arg name="paused" default="false"/>
+  <!-- By default, use the urdf location provided from the package -->
+  <arg name="urdf_path" default="$(find daurar_description)/urdf/right_arm_setup.urdf"/>
+
+  <!-- launch the gazebo simulator and spawn the robot -->
+  <include file="$(find daurar_right_arm_moveit_config)/launch/gazebo.launch" >
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="gazebo_gui" value="$(arg gazebo_gui)"/>
+    <arg name="urdf_path" value="$(arg urdf_path)"/>
+  </include>
+
+  <!-- Robot state publisher -->
+  <include file="$(find ur_gazebo)/launch/controller_utils.launch"/>
+  <rosparam file="$(find ur_gazebo)/controller/right_arm_controller_ur5.yaml" command="load"/>
+  
+  <node name="arm_controller_spawner" pkg="controller_manager" type="controller_manager" args="spawn ur5_arm_right right_gripper" respawn="false" output="screen"/>
+
+  <!-- Run the main MoveIt executable -->
+  <include file="$(find daurar_right_arm_moveit_config)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="fake_execution" value="false"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+
+  <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find daurar_right_arm_moveit_config)/launch/moveit_rviz.launch">
+    <arg name="rviz_config" value="$(find daurar_right_arm_moveit_config)/launch/moveit.rviz"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
+</launch>
